@@ -1,0 +1,252 @@
+@import url('https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,700&family=IBM+Plex+Mono:wght@400;500;600&family=Inter:wght@400;500;600&display=swap');
+
+:root{
+  --ink: #14262B;        /* deep teal-ink background */
+  --ink-2: #1C343B;
+  --paper: #F1ECDD;      /* aged catalog-card paper */
+  --paper-line: #D8CFB4;
+  --brass: #C99A3D;      /* stamp / accent */
+  --brass-dark: #A47A28;
+  --plum: #5B3358;       /* secondary accent for errors/focus */
+  --text: #1F2A2E;
+  --text-soft: #5B6B6E;
+  --cream-text: #EDE7D6;
+}
+
+*{ box-sizing: border-box; }
+
+body{
+  margin:0;
+  min-height:100vh;
+  background:
+    radial-gradient(circle at 15% 10%, rgba(201,154,61,0.08), transparent 45%),
+    var(--ink);
+  font-family:'Inter', sans-serif;
+  color: var(--cream-text);
+  padding: 48px 24px 80px;
+}
+
+.wrap{
+  max-width: 1100px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 380px 1fr;
+  gap: 32px;
+  align-items: start;
+}
+
+@media (max-width: 860px){
+  .wrap{ grid-template-columns: 1fr; }
+}
+
+.panel{
+  background: var(--ink-2);
+  border: 1px solid rgba(201,154,61,0.18);
+  border-radius: 4px;
+  padding: 32px;
+}
+
+/* ---------- FORM PANEL ---------- */
+.eyebrow{
+  font-family:'IBM Plex Mono', monospace;
+  font-size: 12px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--brass);
+  margin-bottom: 10px;
+}
+
+.form-panel h1{
+  font-family:'Fraunces', serif;
+  font-weight: 700;
+  font-size: 32px;
+  margin: 0 0 10px;
+  color: var(--cream-text);
+}
+
+.sub{
+  color: #9FB0AF;
+  font-size: 14px;
+  line-height: 1.5;
+  margin: 0 0 28px;
+}
+
+.field{
+  margin-bottom: 20px;
+  display:flex;
+  flex-direction: column;
+}
+
+.field label{
+  font-family:'IBM Plex Mono', monospace;
+  font-size: 12px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: #9FB0AF;
+  margin-bottom: 8px;
+}
+
+.field input{
+  background: var(--paper);
+  border: 1px solid var(--paper-line);
+  border-radius: 3px;
+  padding: 12px 14px;
+  font-size: 15px;
+  font-family:'Inter', sans-serif;
+  color: var(--text);
+  outline: none;
+  transition: box-shadow 0.15s ease, border-color 0.15s ease;
+}
+
+.field input::placeholder{ color: #9C917A; }
+
+.field input:focus{
+  border-color: var(--brass);
+  box-shadow: 0 0 0 3px rgba(201,154,61,0.25);
+}
+
+.field input.invalid{
+  border-color: #C4544A;
+  box-shadow: 0 0 0 3px rgba(196,84,74,0.2);
+}
+
+.error{
+  min-height: 16px;
+  font-size: 12px;
+  color: #E08A7D;
+  margin-top: 6px;
+  font-family:'IBM Plex Mono', monospace;
+}
+
+#submitBtn{
+  width: 100%;
+  background: var(--brass);
+  color: #1F1706;
+  border: none;
+  border-radius: 3px;
+  padding: 14px;
+  font-family:'IBM Plex Mono', monospace;
+  font-weight: 600;
+  font-size: 13px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: background 0.15s ease, transform 0.1s ease;
+}
+
+#submitBtn:hover{ background: var(--brass-dark); }
+#submitBtn:active{ transform: scale(0.98); }
+#submitBtn:disabled{ opacity: 0.6; cursor: wait; }
+
+.form-status{
+  margin-top: 14px;
+  font-size: 13px;
+  font-family:'IBM Plex Mono', monospace;
+  min-height: 18px;
+}
+.form-status.ok{ color: #8FBF9A; }
+.form-status.err{ color: #E08A7D; }
+
+/* ---------- CARDS PANEL ---------- */
+.cards-header{
+  display:flex;
+  align-items: baseline;
+  justify-content: space-between;
+  margin-bottom: 24px;
+  border-bottom: 1px dashed rgba(201,154,61,0.3);
+  padding-bottom: 14px;
+}
+
+.cards-header h2{
+  font-family:'Fraunces', serif;
+  font-size: 24px;
+  margin: 0;
+  color: var(--cream-text);
+}
+
+.count{
+  font-family:'IBM Plex Mono', monospace;
+  color: var(--brass);
+  font-size: 14px;
+}
+
+.cards-grid{
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
+  gap: 18px;
+}
+
+.empty{
+  grid-column: 1 / -1;
+  color: #728685;
+  font-family:'IBM Plex Mono', monospace;
+  font-size: 13px;
+  padding: 20px 0;
+}
+
+/* Each user rendered as a library catalog card */
+.user-card{
+  position: relative;
+  background: var(--paper);
+  color: var(--text);
+  border-radius: 3px;
+  padding: 18px 16px 16px;
+  box-shadow: 0 6px 16px rgba(0,0,0,0.25);
+  animation: cardIn 0.35s ease both;
+}
+
+.user-card::before{
+  /* punch-hole tab like a library catalog card */
+  content: "";
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--ink);
+  box-shadow: inset 0 0 0 1px rgba(0,0,0,0.2);
+}
+
+.card-no{
+  position: absolute;
+  top: 10px;
+  right: 14px;
+  font-family:'IBM Plex Mono', monospace;
+  font-size: 10px;
+  color: var(--brass-dark);
+  letter-spacing: 0.05em;
+}
+
+.card-name{
+  font-family:'Fraunces', serif;
+  font-weight: 700;
+  font-size: 19px;
+  margin: 14px 0 10px;
+  border-bottom: 1px dashed var(--paper-line);
+  padding-bottom: 8px;
+}
+
+.card-row{
+  display:flex;
+  justify-content: space-between;
+  font-family:'IBM Plex Mono', monospace;
+  font-size: 12px;
+  margin-bottom: 6px;
+  color: var(--text-soft);
+}
+
+.card-row span:last-child{
+  color: var(--text);
+  font-weight: 500;
+}
+
+@keyframes cardIn{
+  from{ opacity: 0; transform: translateY(8px) scale(0.98); }
+  to{ opacity: 1; transform: translateY(0) scale(1); }
+}
+
+:focus-visible{
+  outline: 2px solid var(--brass);
+  outline-offset: 2px;
+}

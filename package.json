@@ -1,0 +1,16 @@
+{
+  "name": "signup-registry-app",
+  "version": "1.0.0",
+  "description": "Signup form (name, birthday, password) that stores users in SQLite and displays them as cards.",
+  "main": "server.js",
+  "engines": {
+    "node": ">=22.5.0"
+  },
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "express": "^4.19.2",
+    "bcryptjs": "^2.4.3"
+  }
+}
